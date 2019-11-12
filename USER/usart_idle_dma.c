@@ -1,3 +1,12 @@
+/*******************************************************************************
+* @File     usart_idle_dma.c
+* @Brief    使用DMA的USART配置文件
+* @Date     2019-11-12
+* @Version  V1.0
+* @Note     使用DMA进行USART接收和发送
+* @Author   EmbeddedXGJ
+*******************************************************************************/
+
 #include "usart_idle_dma.h"
 #include "dma.h"
 
@@ -35,7 +44,6 @@ void USARTx_TX_DMA_Config(void)
 }
 
 /* 开启一次DMA传输 */
-
 void USART1_DMA_SendData(uint16_t DataNumber)
 {
 	USARTx_DMA_Enable_Send(USART1,USART1_TX_DMA_CHANNEL,DataNumber);
@@ -127,10 +135,15 @@ void USART_RecvData(void)
 	u8 res;
 	static uint32_t cnt = 0;
 	
-	res = USART_ReceiveData(USART1);	                   //读取接收到的数据
-	g_USART_RxBuff_t.rx_buff[cnt] = res;
-	g_USART_RxBuff_t.rx_data_len = cnt;
-	cnt++;
+	res = USART_ReceiveData(USART1);	                   //读取接收到的数据	
+	if(cnt < USART_RX_BUFF_LEN){   
+		g_USART_RxBuff_t.rx_buff[cnt] = res;
+		g_USART_RxBuff_t.rx_data_len = cnt;
+		cnt++;	
+	}else {
+		g_USART_RxBuff_t.rx_buff[0] = res;   //把数据搬到第一个
+		cnt = 1;
+	}		
 }
 #endif
 

@@ -1,3 +1,12 @@
+/*******************************************************************************
+* @File     usart_idle_dma.c
+* @Brief    主函数文件
+* @Date     2019-11-12
+* @Version  V1.0
+* @Note     测试
+* @Author   EmbeddedXGJ
+*******************************************************************************/
+
 #include "led.h"
 #include "delay.h"
 #include "key.h"
@@ -11,7 +20,6 @@ extern char g_sendBuff[USART_DMA_TX_BUFF_LEN];
 	u16 i;
 	delay_init();	    	 //延时函数初始化	  
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-//	uart_init(115200);	 //串口初始化为115200
 	
  	LED_Init();			     //LED端口初始化
 	KEY_Init();          //初始化与按键连接的硬件接口

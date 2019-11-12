@@ -1,3 +1,11 @@
+/*******************************************************************************
+* @File     dma.c
+* @Brief    DMA配置文件
+* @Date     2019-11-12
+* @Version  V1.0
+* @Note     USART DMA初始化
+* @Author   EmbeddedXGJ
+*******************************************************************************/
 #include "dma.h"
 
 void My_DMA_Config(DMA_Channel_TypeDef* DMA_CHx,u32 peri_base_addr,
@@ -25,8 +33,8 @@ void My_DMA_Config(DMA_Channel_TypeDef* DMA_CHx,u32 peri_base_addr,
 
 void USARTx_DMA_Enable_Send(USART_TypeDef* USARTx,DMA_Channel_TypeDef*DMA_CHx,uint16_t DataNumber)
 { 
-	DMA_Cmd(DMA_CHx, DISABLE);                //关闭USART1 TX DMA1 所指示的通道      
- 	DMA_SetCurrDataCounter(DMA_CHx,DataNumber);//DMA通道的DMA缓存的大小
+	DMA_Cmd(DMA_CHx, DISABLE);                 //关闭USART1 TX DMA1 所指示的通道      
+ 	DMA_SetCurrDataCounter(DMA_CHx,DataNumber); //DMA通道的DMA缓存的大小
  	DMA_Cmd(DMA_CHx, ENABLE);                    //使能USART1 TX DMA1 所指示的通道 
 	USART_DMACmd(USARTx,USART_DMAReq_Tx,ENABLE); //使能DMA传输
 }	  
